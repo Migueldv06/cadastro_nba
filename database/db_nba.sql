@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 11-Dez-2024 às 15:09
+-- Generation Time: 20-Dez-2024 às 12:34
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
@@ -25,33 +25,23 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `conferencia`
---
-
-CREATE TABLE `conferencia` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `conferencia`
---
-
-INSERT INTO `conferencia` (`id`, `nome`) VALUES
-(1, 'west');
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `jogador`
 --
 
 CREATE TABLE `jogador` (
   `id` int(11) NOT NULL,
-  `nome` varchar(200) NOT NULL,
-  `altura` int(11) NOT NULL,
+  `nome` varchar(100) NOT NULL,
+  `altura` decimal(5,2) NOT NULL,
   `time` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `jogador`
+--
+
+INSERT INTO `jogador` (`id`, `nome`, `altura`, `time`) VALUES
+(1, 'lebron', '2.00', 1),
+(2, 'lebron', '2.00', 8);
 
 -- --------------------------------------------------------
 
@@ -61,63 +51,56 @@ CREATE TABLE `jogador` (
 
 CREATE TABLE `time` (
   `id` int(11) NOT NULL,
-  `nome` varchar(200) NOT NULL,
-  `cidade` varchar(200) NOT NULL,
-  `conferencia` int(11) NOT NULL
+  `nome` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `time`
 --
 
-INSERT INTO `time` (`id`, `nome`, `cidade`, `conferencia`) VALUES
-(1, 'denver nugget', 'denver', 1);
+INSERT INTO `time` (`id`, `nome`) VALUES
+(1, 'denver'),
+(2, 'buston'),
+(4, 'bosta celtas'),
+(5, 'bosta celtas'),
+(6, 'teste'),
+(7, 'teste'),
+(8, 'testão'),
+(9, 'teste ronan'),
+(10, '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `conferencia`
---
-ALTER TABLE `conferencia`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `jogador`
 --
 ALTER TABLE `jogador`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_jogador_id_time` (`time`);
+  ADD KEY `time` (`time`);
 
 --
 -- Indexes for table `time`
 --
 ALTER TABLE `time`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_time_id_conferencia` (`conferencia`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `conferencia`
---
-ALTER TABLE `conferencia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `jogador`
 --
 ALTER TABLE `jogador`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `time`
 --
 ALTER TABLE `time`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables
@@ -127,13 +110,7 @@ ALTER TABLE `time`
 -- Limitadores para a tabela `jogador`
 --
 ALTER TABLE `jogador`
-  ADD CONSTRAINT `id_jogador_id_time` FOREIGN KEY (`time`) REFERENCES `time` (`id`);
-
---
--- Limitadores para a tabela `time`
---
-ALTER TABLE `time`
-  ADD CONSTRAINT `id_time_id_conferencia` FOREIGN KEY (`conferencia`) REFERENCES `conferencia` (`id`);
+  ADD CONSTRAINT `jogador_ibfk_1` FOREIGN KEY (`time`) REFERENCES `time` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
